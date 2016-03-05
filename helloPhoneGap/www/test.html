@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/jquery-2.2.1.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<title>
+	hello jquery
+	</title>
+</head>
+<body>
+<div data-role="page" id="first">
+	<div data-role="header" role="banner" class="ui-header ui-bar-inherit" data-position="fixed">
+		<h1>this is the page title</h1>
+	</div><!--header-->
+	<div role="main" class="ui-content">
+		<p>this is the page content</p>
+		<a href="#second" class="ui-link" data-transition="slide">second</a></br>
+		<a href="#second" data-rel="dialog" class="ui-btn ui-shadow" data-transition="slide">打开dialog</a>
+		<div data-role="collapsible">
+			<h4>collapsible</h4>
+			<label>
+				<input type="checkbox" class="ui-checkboxs">选择
+			</label>
+		</div>
+		<div data-role="collapsible">
+			<h4>内容标题</h4>
+			<p>展开的内容</p>
+		</div>
+
+		<div class="ui-grid-a" >
+			<div class="ui-block-a">
+				<div class="ui-bar ui-bar-a">first</div>
+			</div>
+			<div class="ui-block-b">
+				<div class="ui-bar ui-bar-a">first</div>
+			</div>
+			<div class="ui-block-a">
+				<div class="ui-bar ui-bar-a">first</div>
+			</div>
+			<div data-role="collapsible" class="ui-block-b">
+				<h4>grid coll</h4>
+				<div class="ui-bar ui-bar-a">first</div>
+			</div>
+		</div>
+
+		<div data-role="ui-grid-solo">
+			<ul data-role="listview" data-filter="true" data-inset="true">
+				<li>第一</li>
+				<li>个个看决赛公交等级</li>
+				<li>公交和几个</li>
+			</ul>
+		</div>
+
+		<div data-role="listview" data-filter="true" data-inset="true">
+			<div data-role="collapsible">
+				<h4>改价格</h4>
+				<p>内容</p>
+			</div>
+			<div data-role="collapsible">
+				<h4>坏蛋</h4>
+				<p>内容</p>
+			</div>
+			<div data-role="collapsible">
+				<h4>嘎嘎</h4>
+				<p>内容</p>
+			</div>
+			<div data-role="collapsible">
+				<h4>翻山倒海</h4>
+				<p>内容</p>
+			</div>
+		</div>
+
+		<div data-role="listview" data-filter="true" data-filter-reveal="true" data-inset="true">
+			<div data-role="collapsible">
+				<h4>改价格</h4>
+				<p>内容</p>
+			</div>
+			<div data-role="collapsible">
+				<h4>坏蛋</h4>
+				<p>内容</p>
+			</div>
+			<div data-role="collapsible">
+				<h4>嘎嘎</h4>
+				<p>内容</p>
+				<p>sfaf</p>
+			</div>
+			<div data-role="collapsible">
+				<h4>翻山倒海</h4>
+				<p>内容</p>
+			</div>
+		</div>
+
+	</div><!--content-->
+	<div data-role="footer" data-position="fixed">
+		<h4>this the page footer</h4>
+	</div><!--footer-->
+</div>
+<div data-role="page" id="second">
+	<div data-role="header" role="banner" class="ui-header ui-bar-inherit" data-position="fixed">
+		<h1>this is the page title</h1>
+	</div><!--header-->
+	<div role="main" class="ui-content" data-type="horizontal">
+		<p>this is the page content</p>
+		<a href="#first" class="ui-btn" data-transition="slide">first</a>
+		<label>
+			<input type="checkbox" class="ui-checkboxs">选择
+		</label>
+		<label>
+			<input type="checkbox" class="ui-checkboxs">选择
+		</label>
+		<label>
+			<input type="radio" class="ui-radio">选择
+		</label>
+
+
+		<a href="#popup1" data-rel="popup" class="ui-btn">查看原图</a>
+		<div data-role="popup" id="popup1">
+			<p>弹出原图</p>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<a href="#popup2" data-rel="popup" data-position="window" data-transition="fade" class="ui-btn">
+			<img src="icon.png" class="pupphoto" style="width: 10%">
+		</a>
+		<div data-role="popup" id="popup2">
+			<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
+			<img src="icon.png" class="popphoto" style="max-height: 512px">
+		</div>
+
+		<div>
+			
+		</div><!--selectMenu-->
+	</div><!--content-->
+	<div data-role="footer" data-position="fixed">
+		<h4>this the page footer</h4>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" data-icon="star" class="ui-btn-active">a</a></li>
+				<li><a href="#" data-icon="grid">b</a></li>
+				<li><a href="#" data-icon="gear">c</a></li>
+				<li><a href="#" data-icon="grid">d</a></li>
+			</ul>
+		</div><!--脚部标签-->
+	</div><!--footer-->
+</div>
+
+
+</body>
+</html>
