@@ -54,11 +54,10 @@ if __name__ == '__main__':
     num = 0
     for r in result:
         num += 1
-        if num > 99:
-            del r["_id"]
-            writeURL(r,'TZ')
-            if num%20 == 0:
-                resultCollection.insert_many(contentList)
-                contentList = []
+        del r["_id"]
+        writeURL(r,'TZ')
+        if num%20 == 0:
+            resultCollection.insert_many(contentList)
+            contentList = []
 
     resultCollection.insert_many(contentList)
