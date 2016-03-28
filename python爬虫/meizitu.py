@@ -49,30 +49,3 @@ if __name__ == '__main__':
     pool.map(running, zip(urlList, numList))
     pool.close()
     pool.join()
-    '''thread_list = []
-    thread_list.append(MyThread(running, (10, urlList.pop(0), numList.pop(0))))
-    thread_list.append(MyThread(running, (10, urlList.pop(0), numList.pop(0))))
-    thread_list.append(MyThread(running, (10, urlList.pop(0), numList.pop(0))))
-    thread_list.append(MyThread(running, (10, urlList.pop(0), numList.pop(0))))
-
-    for k in thread_list:
-        k.setDaemon(True)
-        k.start()
-    for l in thread_list:
-        l.join()
-    while True:
-        print "main"
-        for n in range(4):
-            if not thread_list[0].isAlive():
-                if len(numList) != 0:
-                    thread_list.pop(0)
-                    thread_list.append(MyThread(running, (5, urlList.pop(0), numList.pop(0))))
-                    time.sleep(5)
-        for k in thread_list:
-            k.setDaemon(True)
-            k.start()
-        for l in thread_list:
-            l.join()
-
-    print "end"
-    '''
