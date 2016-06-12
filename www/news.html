@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>原文</title>
+    <link rel="stylesheet" href="css/material.min.css">
+    <link href="http://cdn.bootcss.com/material-design-icons/2.2.3/iconfont/material-icons.css" rel="stylesheet">
+    <script src="js/material.min.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+    <style>
+        #content{
+            padding: 24px;
+        }
+        #header{
+            margin-bottom: 20px;
+        }
+        img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs" id="wrapper">
+        <header class="mdl-layout__header" id="title">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">原文</span>
+        </div>
+        </header>
+        <div class="mdl-layout__drawer" id="drawer">
+            <span class="mdl-layout-title">分类</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="index.html">首页</a>
+                <a class="mdl-navigation__link" href="twt.html">天外天</a>
+                <a class="mdl-navigation__link" href="tju.html">新闻网</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content" id="main">
+
+        </main>
+    </div>
+    <script type="text/x-handlebars-template" id="news-template">
+        <main id="content">
+            <header id="header">
+                <hgroup>
+                    <h2>{{{Title}}}</h2>
+                    <i>{{Time}}</i>
+                    <i>来源：</i><i>{{From}}</i>
+                </hgroup>
+            </header>
+            <article id="article">
+                <p>{{{Content}}}</p>
+            </article>
+            <footer>
+                <a href="{{URL}}">阅读原文</a>
+            </footer>
+        </main>
+    </script>
+    <script>
+        window.onload = function(){
+            var url = localStorage.getItem("key");
+            console.log(url);
+            var content = localStorage.getItem(url);
+            console.log(content);
+            var source = document.getElementById('news-template').innerHTML;
+            var template = Handlebars.compile(source);
+            var target = document.getElementById('main');
+            var str = template(JSON.parse(content));
+            target.innerHTML = str;
+        }
+
+    </script>
+</body>
+</html>

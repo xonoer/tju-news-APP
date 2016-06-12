@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>首页</title>
+        <link rel="stylesheet" href="css/material.min.css">
+        <link href="http://cdn.bootcss.com/material-design-icons/2.2.3/iconfont/material-icons.css" rel="stylesheet">
+        <script src="js/material.min.js"></script>
+        <link href="css/style.css" rel="stylesheet">
+        <script src="js/jquery-2.2.1.min.js"></script>
+        <script src="js/handlebars-v4.0.5.js"></script>
+        <style>
+            body{
+                background-color: #D6D8DA;
+            }
+            .news-card{
+                width: auto;
+                margin:24px;
+            }
+            .news-card > .mdl-card__title {
+                height: 200px;
+                color: #fff;
+                background: url('background-2.png') center / cover;
+            }
+            .news-card > .mdl-card__menu {
+                color: #fff;
+            }
+            #main{
+                overflow: visible;
+            }
+            .loading,.data-loading{
+                text-align: center;
+            }
+            .data-loading .continue-loading{
+                width: 100%;
+            }
+            #drawer a:nth-child(1){
+                background-color: #e0e0e0;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs" id="wrapper">
+            <header class="mdl-layout__header" id="title">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">全部</span>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer" id="drawer">
+                <span class="mdl-layout-title">分类</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="index.html">首页</a>
+                    <a class="mdl-navigation__link" href="twt.html">天外天</a>
+                    <a class="mdl-navigation__link" href="tju.html">新闻网</a>
+                    <a class="mdl-navigation__link" href="tju.html">讲座</a>
+                    <a class="mdl-navigation__link" href="tju.html">活动</a>
+                    <a class="mdl-navigation__link" href="tju.html">微信公众号</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content" id="main">
+                <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+                    <div class="page-content">
+                        <div class="loading">
+                            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                        </div>
+                        <div class="data-loading">
+                            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                            <button class="continue-loading mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                点击加载
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+
+        </div>
+        <script id="entry-template" type="text/x-handlebars-template">
+            <div class="news-card mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title" style='background-image: url("{{ImageURL}}")'>
+                    <h2 class="mdl-card__title-text">{{From}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    {{{Title}}}
+                    <br>
+                    <i>{{Time}}</i>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a class="move-to mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="news.html" data-url="{{URL}}" target="_blank">
+                        查看文章
+                    </a>
+                </div>
+            </div>
+        </script>
+        <script>
+            function clearLocalStorage(){
+                for(var i in localStorage){
+                    localStorage.removeItem(i);
+                }
+            }
+            function loadData(source,type,page, num){
+                $.ajax({
+                    url: "../GetJson",
+                    type: 'POST',
+                    data: {
+                        source:source,
+                        page:page,
+                        num:num
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        sourceData = sourceData.concat(data);
+                        console.log(sourceData);
+                        $.each(data,function(index,item){
+                            var html = template(item);
+                            $target.before(html);
+                        });
+                    },
+                    error: function(error){
+                        $(this).html("加载失败，请重新加载");
+                    }
+                });
+
+            }
+            var source = $('#entry-template').html();
+            var template = Handlebars.compile(source);
+            var $target = $("#scroll-tab-1>.page-content>.data-loading");
+            var url;
+            var content;
+            var sourceData = [];
+            var pageCount = {};
+            loadData("twtURL",null,1,10);
+            loadData("tju",null,1,10);
+
+            $(".loading>.mdl-spinner").hide();
+            $(".data-loading>.mdl-spinner").hide();
+            window.onload = function(){
+                clearLocalStorage();
+                $(".move-to").bind("click",function(event){
+                    url = $(this).attr('data-url');
+                    sourceData.forEach(function(item){
+                        if(item["URL"] == url){
+                            content = item;
+                            console.log(item['URL']);
+                            return false;
+                        }
+                    });
+                    localStorage.setItem(url,JSON.stringify(content));
+                    localStorage.setItem("key",url);
+                });
+                $(".data-loading>.continue-loading").click(function(){
+                    $(this).hide();
+                    $(".data-loading>.mdl-spinner").show();
+                    pageCount.all = pageCount.all ? pageCount.all : 1;
+                    pageCount.all++;
+                    loadData("tju",null,pageCount.all,10);
+                    loadData("twtURL",null,pageCount.all,10);
+                    $(this).show();
+                    $(".data-loading>.mdl-spinner").hide();
+                });
+            }
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>天外天</title>
+    <link rel="stylesheet" href="css/material.min.css">
+    <link href="http://cdn.bootcss.com/material-design-icons/2.2.3/iconfont/material-icons.css" rel="stylesheet">
+    <script src="js/material.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery-2.2.1.min.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+    <style>
+        body{
+            background-color: #D6D8DA;
+        }
+        .news-card{
+            width: auto;
+            margin:24px;
+        }
+        .news-card > .mdl-card__title {
+            height: 200px;
+            color: #fff;
+            background: url('background-2.png') center / cover;
+        }
+        .news-card > .mdl-card__menu {
+            color: #fff;
+        }
+        #main{
+            overflow: visible;
+        }
+        .loading,.data-loading{
+            text-align: center;
+        }
+        .data-loading .continue-loading{
+            width: 100%;
+        }
+        #drawer a:nth-child(2){
+            background-color: #e0e0e0;
+        }
+    </style>
+
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs" id="wrapper">
+    <header class="mdl-layout__header" id="title">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">天外天</span>
+        </div>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#scroll-tab-1" class="mdl-layout__tab is-active">校园公告</a>
+            <a href="#scroll-tab-2" class="mdl-layout__tab">重要新闻</a>
+            <a href="#scroll-tab-3" class="mdl-layout__tab">视点观察</a>
+            <a href="#scroll-tab-4" class="mdl-layout__tab">缤纷北洋</a>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer" id="drawer">
+        <span class="mdl-layout-title">分类</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="index.html">首页</a>
+            <a class="mdl-navigation__link" href="twt.html">天外天</a>
+            <a class="mdl-navigation__link" href="tju.html">新闻网</a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content" id="main">
+        <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+            <div class="page-content">
+                <div class="loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
+                <div class="data-loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                    <button class="continue-loading mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        点击加载
+                    </button>
+                </div>
+
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+            <div class="page-content">
+                <div class="loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
+                <div class="data-loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                    <button class="continue-loading mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        点击加载
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="scroll-tab-3">
+            <div class="page-content">
+                <div class="loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
+                <div class="data-loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                    <button class="continue-loading mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        点击加载
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+            <div class="page-content">
+                <div class="loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
+                <div class="data-loading">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                    <button class="continue-loading mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        点击加载
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</div>
+<script id="entry-template" type="text/x-handlebars-template">
+    <div class="news-card mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title" style='background-image: url("{{ImageURL}}")'>
+            <h2 class="mdl-card__title-text">{{From}}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            {{{Title}}}
+            <br>
+            <i>{{Time}}</i>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="move-to mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="news.html" data-url="{{URL}}" target="_blank">
+                查看文章
+            </a>
+        </div>
+    </div>
+</script>
+<script>
+
+    var source = $('#entry-template').html();
+    var template = Handlebars.compile(source);
+    var $target1 = $("#scroll-tab-1>.page-content>.data-loading");
+    var $target2 = $("#scroll-tab-2>.page-content>.data-loading");
+    var $target3 = $("#scroll-tab-3>.page-content>.data-loading");
+    var $target4 = $("#scroll-tab-4>.page-content>.data-loading");
+    var targetArr = {
+        "GG":$target1,
+        "XW":$target2,
+        "GC":$target3,
+        "ST":$target4
+    };
+    var url;
+    var content;
+    var sourceData = [];
+    var tabs = ["GG","XW","GC","ST"];
+    var pageCount = {};
+    function clearLocalStorage(){
+        for(var i in localStorage){
+            localStorage.removeItem(i);
+        }
+    }
+    function loadData(type, page, num,target){
+        $.ajax({
+            url: "../GetJson",
+            type: 'POST',
+            data: {
+                source:"twtURL",
+                kind:type,
+                page:page,
+                num:num
+            },
+            dataType: 'json',
+            success: function(data){
+                sourceData = sourceData.concat(data);
+                console.log(data);
+                console.log(sourceData);
+                $.each(data,function(index,item){
+                    var html = template(item);
+                    target.before(html);
+                });
+            },
+            error: function(error){
+                $(this).html("加载失败，请重新加载");
+            }
+        });
+
+    }
+
+    function setStatus(){
+        var $index = +$("section.is-active").attr("id").slice(11,12);
+        return tabs[$index-1];
+    }
+
+    loadData("GG",1,10,$target1);
+    loadData("XW",1,10,$target2);
+    loadData("GC",1,10,$target3);
+    loadData("ST",1,10,$target4);
+
+    $(".loading>.mdl-spinner").hide();
+    $(".data-loading>.mdl-spinner").hide();
+    window.onload = function(){
+        clearLocalStorage();
+        $(".move-to").bind("click",function(event){
+            url = $(this).attr('data-url');
+            sourceData.forEach(function(item){
+                if(item["URL"] == url){
+                    content = item;
+                    console.log(item['URL']);
+                    return false;
+                }
+            });
+            localStorage.setItem(url,JSON.stringify(content));
+            localStorage.setItem("key",url);
+        });
+        $(".data-loading .continue-loading").click(function(){
+            $(this).hide();
+            $(".data-loading>.mdl-spinner").show();
+            var status = setStatus();
+            pageCount[status] = pageCount[status]? pageCount[status] : 1;
+            pageCount[status]++;
+            loadData(status,pageCount[status],10,targetArr[status]);
+            $(this).show();
+            $(".data-loading>.mdl-spinner").hide();
+        });
+    }
+</script>
+</body>
+</html>
+
